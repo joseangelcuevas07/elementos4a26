@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 class Screen3 extends StatelessWidget {
   const Screen3({super.key});
 
-  final corderos = const [
-  'Birrias',
-  'Calcetin',
-  'Jr',
-  'Fisgon',
-  'Copo de Nieve'
-  ];
+  final Map<String, String> corderos = const {
+    'Birrias': 'assets/imgs/cordero1.jpg',
+    'Calcetin': 'assets/imgs/cordero1.jpg',
+    'Jr': 'assets/imgs/cordero1.jpg',
+    'Fisgon': 'assets/imgs/cordero1.jpg',
+    'Copo de Nieve': 'assets/imgs/cordero1.jpg',
+
+  };
+
 
   final borregas =  const[
     'Canela',
@@ -26,19 +28,14 @@ class Screen3 extends StatelessWidget {
       appBar: AppBar(title: Text('Ventana 3'),),
       body: ListView(
         children: [
-          ...corderos.map((cordero)=>ListTile(
-          leading: Icon(Icons.pets_rounded),
-          title: Text(cordero),
-          subtitle: Text('Cordero traviezo'),
-          trailing: Icon(Icons.arrow_forward),
-          tileColor: Color.fromARGB(111, 195, 230, 241),
-          iconColor: Colors.blueAccent,
-          textColor: Colors.blueAccent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-          ),
-          ),
+          ...corderos.entries.map((cordero) {
+            return _tileDog(
+            cordero.key,
+            cordero.value,
+            Colors.blueAccent,
+            Colors.amberAccent,
+            Colors.white );}),
+
           Divider(),
           ...borregas.map((borrega)=>ListTile(
           leading: Icon(Icons.pets_rounded),
@@ -50,5 +47,28 @@ class Screen3 extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _tileDog(
+    String corderoName,
+    String corderoImage,
+    Color titlecolor,
+    Color iconColor,
+    Color textColor
+  ){
+   final tile =  ListTile(
+          leading: Image.asset(corderoImage, width: 50, height: 50),
+          title: Text(corderoName),
+          subtitle: Text('Cordero traviezo'),
+          trailing: Icon(Icons.arrow_forward),
+          tileColor: titlecolor,
+          iconColor: iconColor,
+          textColor: textColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+          );
+          final espacio = SizedBox(height:10);
+          return Column(children: [tile, espacio]);
   }
 }
